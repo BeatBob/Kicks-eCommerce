@@ -10,7 +10,7 @@ function NotFound() {
           className="menu hover:drop-shadow-lg bg-white hover:bg-white"
         >
           {" "}
-          back to Home?
+          Back to Home?
         </Link>
       </div>
     </div>

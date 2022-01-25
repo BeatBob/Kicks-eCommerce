@@ -28,6 +28,9 @@ function HeaderLeft() {
         <Link to="/Support" className="menu text-left w-40">
           Support
         </Link>
+        <Link to="/Cart" className="menu text-left w-40">
+          Cart
+        </Link>
       </div>
     </div>
   );

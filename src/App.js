@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -9,6 +9,8 @@ import NotFound from "./NotFound";
 import Shoes from "./Shoes";
 import Bags from "./Bags";
 import Accessories from "./Accessories";
+import Cart from "./Cart";
+import CardPopUp from "./CardPopUp";
 
 function App() {
   const [dash, setDash] = useState("translate-x-52");
@@ -33,16 +35,32 @@ function App() {
         </div>
 
         <div className="w-52 -mt-4 right-0 bg-rose-100 flex flex-col justify-around">
-          <div className="w-auto h-2/6 m-auto">
+          <Link to="/" className="w-auto h-2/6 m-auto">
             <img src="../logo.png" alt="logo" />
-          </div>
+          </Link>
 
           <div className="w-auto h-2/6 flex flex-col justify-around ">
-            <p className="menu">Account</p>
-            <p className="menu">Shoes</p>
-            <p className="menu">Bags</p>
-            <p className="menu">Accessories</p>
-            <p className="menu">Support</p>
+            <Link to="/" className="menu">
+              Home
+            </Link>
+            <Link to="*" className="menu">
+              Account
+            </Link>
+            <Link to="/Shoes" className="menu">
+              Shoes
+            </Link>
+            <Link to="/Bags" className="menu">
+              Bags
+            </Link>
+            <Link to="/Accessories" className="menu">
+              Accessories
+            </Link>
+            <Link to="/Cart" className="menu">
+              Cart
+            </Link>
+            <Link to="/Support" className="menu">
+              Support
+            </Link>
           </div>
 
           <div className="flex justify-around items-center w-auto h-2/6">
@@ -65,6 +83,8 @@ function App() {
         <Route path="/Bags" element={<Bags />} />
         <Route path="/Accessories" element={<Accessories />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/Cart" element={<Cart />} />
+        <Route path="/CardPopUp" element={<CardPopUp />} />
       </Routes>
     </Router>
   );

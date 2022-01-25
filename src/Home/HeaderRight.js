@@ -1,4 +1,5 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Link } from "react-router-dom";
 
 function HeaderRight() {
   return (
@@ -9,15 +10,27 @@ function HeaderRight() {
       {/* bottom-72 -left-9 -rotate-90*/}
       <div className="absolute bottom-[40%] -left-[30%] -rotate-90 flex justify-between ">
         <div className="flex justify-between mr-20">
-          <p className="rightMenu px-2 mr-2">fb</p>
-          <p className="rightMenu px-2 mx-2">tw</p>
-          <p className="rightMenu px-2 mx-2">in</p>
+          <Link to="*" className="rightMenu px-2 mr-6">
+            fb
+          </Link>
+          <Link to="*" className="rightMenu px-2 mr-6">
+            tw
+          </Link>
+          <Link to="*" className="rightMenu px-2 mr-6">
+            in
+          </Link>
         </div>
 
         <div className="flex justify-between w-72">
-          <p className="rightMenu ml-10">Manufacturing</p>
-          <p className="rightMenu">packaging</p>
-          <p className="rightMenu">team</p>
+          <Link to="*" className="rightMenu ml-10">
+            Manufacturing
+          </Link>
+          <Link to="*" className="rightMenu">
+            packaging
+          </Link>
+          <Link to="*" className="rightMenu">
+            team
+          </Link>
         </div>
       </div>
     </div>

@@ -5,8 +5,8 @@
 
 @layer components {
   .menu {
-    @apply font-bold text-xl text-gray-700 block hover:bg-rose-300 w-52 text-center
-    py-2 transition duration-200 ease-in-out cursor-pointer hover:text-2xl;
+    @apply font-bold text-xl text-gray-700 block  w-52 text-center
+    py-2 transition duration-200 ease-in-out cursor-pointer hover:bg-rose-300 hover:text-2xl;
   }
   .mediaBtn {
     filter: invert(87%) sepia(53%) saturate(1499%) hue-rotate(287deg)

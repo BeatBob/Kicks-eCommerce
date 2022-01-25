@@ -21,7 +21,9 @@ function Hero() {
           <h4 className="text-gray-500 text-base ">
             The best looks; Top comfort
           </h4>
-          <h2 className="text-8xl font-medium lg:text-5xl pb-3">Comfy Maxer</h2>
+          <h2 className=" lg:text-7xl font-medium text-5xl pb-3">
+            Nike Air <br /> Max 90
+          </h2>
           <p className="text-gray-600 text-base  leading-relaxed tracking-wide">
             Our shoes fuse together an insole that cushions every move, laces
             that you'll never need to tie again, and an odor-fighting copper
