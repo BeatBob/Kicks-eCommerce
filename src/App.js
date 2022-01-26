@@ -6,11 +6,10 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import Home from "./Home";
 import NotFound from "./NotFound";
-import Shoes from "./Shoes";
 import Bags from "./Bags";
 import Accessories from "./Accessories";
 import Cart from "./Cart";
-import CardPopUp from "./CardPopUp";
+import Shoes from "./Shoes";
 
 function App() {
   const [dash, setDash] = useState("translate-x-52");
@@ -79,12 +78,11 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Shoes" element={<Shoes />} />
         <Route path="/Bags" element={<Bags />} />
+        <Route path="/Shoes" element={<Shoes />} />
         <Route path="/Accessories" element={<Accessories />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/Cart" element={<Cart />} />
-        <Route path="/CardPopUp" element={<CardPopUp />} />
       </Routes>
     </Router>
   );
