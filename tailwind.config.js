@@ -4,7 +4,7 @@ module.exports = {
     extend: {
       keyframes: {
         dash: {
-          "0%": { transform: "translateX(208px)" },
+          "0%": { transform: "translateX(300px)" },
           "100%": {
             transform: "translateX(0px)",
           },
