@@ -1,6 +1,7 @@
 import React from "react";
 
-function CartList() {
+function CartList({ cartItem }) {
+  console.log(cartItem);
   return (
     <div class="flex items-center hover:bg-gray-100  px-6 py-5">
       <div class="flex w-2/5">
@@ -17,10 +18,14 @@ function CartList() {
         </div>
       </div>
       <div class="flex justify-center w-1/5">
-        <p>1</p>
+        <p>{cartItem.quantity}</p>
       </div>
-      <span class="text-center w-1/5 font-semibold text-sm">$400.00</span>
-      <span class="text-center w-1/5 font-semibold text-sm">$400.00</span>
+      <span class="text-center w-1/5 font-semibold text-sm">
+        {cartItem.price}
+      </span>
+      <span class="text-center w-1/5 font-semibold text-sm">
+        {cartItem.totalPrice}
+      </span>
     </div>
   );
 }
