@@ -1,10 +1,31 @@
+import { collection, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "../firebase";
 import CartList from "./CartList";
-import { useSelector } from "react-redux";
-import { getCartItems, getTotalPrice } from "../features/counter/counterSlice";
 
 function Cart() {
-  const cartItems = useSelector(getCartItems);
-  const totalPrice = useSelector(getTotalPrice);
+  const [getItem, setGetItem] = useState([]);
+  const docData = async () => {
+    const querySnapshot = await getDocs(collection(db, "cartData"));
+    let data = [];
+    querySnapshot.forEach((doc) => {
+      data.push({ ...doc.data(), id: doc.id });
+    });
+    setGetItem(data);
+  };
+  // .then((snapshot) => {
+  //     let data = [];
+  //     snapshot.docs.forEach((doc) => {
+  //       data.push({ ...doc.data(), id: doc.id });
+  //     });
+  //     setGetItem(data);
+
+  useEffect(() => {
+    docData();
+  }, []);
+
+  // console.log(data);
+  console.log(getItem);
 
   return (
     <div className="container mx-auto mt-10">
@@ -35,9 +56,19 @@ function Cart() {
           </div>
 
           <div className="overflow-y-auto overflow-x-hidden h-[70%]">
-            {cartItems.map((cartItem) => (
-              <CartList cartItem={cartItem} />
-            ))}
+            {getItem.map((item) => {
+              return (
+                <CartList
+                  key={item.id}
+                  img={item.img}
+                  desc={item.desc}
+                  name={item.name}
+                  price={item.price}
+                  quantity={item.quantity.value}
+                  total={item.total}
+                />
+              );
+            })}
           </div>
         </div>
 
@@ -48,7 +79,7 @@ function Cart() {
           </h1>
           <div className="flex justify-between mt-10 mb-5">
             <span className="font-semibold text-sm uppercase">Items 3</span>
-            <span className="font-semibold text-sm">{totalPrice}</span>
+            <span className="font-semibold text-sm"></span>
           </div>
           <div>
             <label className="font-medium inline-block mb-3 text-sm uppercase">
