@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable */
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -10,6 +11,16 @@ import Bags from "./Bags";
 import Accessories from "./Accessories";
 import Cart from "./Cart";
 import Shoes from "./Shoes";
+import {
+  getAuth,
+  getRedirectResult,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithRedirect,
+  signOut,
+} from "firebase/auth";
+import { Avatar } from "@mui/material";
+import { provider } from "./firebase";
 
 function App() {
   const [dash, setDash] = useState("translate-x-52");
@@ -19,6 +30,32 @@ function App() {
     setDash(dash === "translate-x-52" ? "animate-dash" : "translate-x-52");
     setBack(dash === "translate-x-52" ? "rotate-180" : "");
   };
+
+  const [User, setUser] = useState([]);
+  const auth = getAuth();
+
+  useEffect(() => {
+    getRedirectResult(auth)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access Google APIs.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+
+        // The signed-in user info.
+        const user = result.user;
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+    onAuthStateChanged(auth, (user) => setUser(user));
+  });
 
   return (
     <Router>
@@ -39,12 +76,27 @@ function App() {
           </Link>
 
           <div className="w-auto h-2/6 flex flex-col justify-around ">
-            <Link to="/" className="menu">
-              Home
-            </Link>
-            <Link to="*" className="menu">
-              Account
-            </Link>
+            <div className="flex  flex-col items-center">
+              {User && (
+                <Avatar
+                  src={User.photoURL}
+                  className="cursor-pointer scale-125 hover:scale-150 "
+                />
+              )}
+              {User ? (
+                <button className="menu" onClick={() => signOut(auth)}>
+                  Log-Out
+                </button>
+              ) : (
+                <button
+                  className="menu"
+                  onClick={() => signInWithRedirect(auth, provider)}
+                >
+                  Log-In
+                </button>
+              )}
+            </div>
+
             <Link to="/Shoes" className="menu">
               Shoes
             </Link>

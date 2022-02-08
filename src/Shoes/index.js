@@ -73,7 +73,7 @@ function Shoes() {
           </h2>
 
           {shoeList.map(({ img, desc, name, price }, index) => (
-            <div>
+            <div key={index}>
               <div className="w-[320px] h-[510px] drop-shadow-xl bg-pink-100 mb-4 mt-8 rounded-lg ">
                 <img
                   src={img}
@@ -148,6 +148,7 @@ function Shoes() {
                       addDoc(collection(db, "cartData"), {
                         img,
                         name,
+                        desc,
                         quantity: { value },
                         price,
                         total,
