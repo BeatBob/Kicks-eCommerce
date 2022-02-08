@@ -1,9 +1,12 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import CartList from "./CartList";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
 function Cart() {
+  const navigate = useNavigate();
   const [getItem, setGetItem] = useState([]);
   const docData = async () => {
     const querySnapshot = await getDocs(collection(db, "cartData"));
@@ -13,19 +16,10 @@ function Cart() {
     });
     setGetItem(data);
   };
-  // .then((snapshot) => {
-  //     let data = [];
-  //     snapshot.docs.forEach((doc) => {
-  //       data.push({ ...doc.data(), id: doc.id });
-  //     });
-  //     setGetItem(data);
 
   useEffect(() => {
     docData();
-  }, []);
-
-  // console.log(data);
-  console.log(getItem);
+  });
 
   return (
     <div className="container mx-auto mt-10">
@@ -33,7 +27,14 @@ function Cart() {
         <div className="w-3/4 h-[640px] bg-white px-10 py-10 ">
           <div className="flex justify-between border-b pb-8">
             <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-            <h2 className="font-semibold text-2xl">3 Items</h2>
+            <h2 className="font-semibold text-2xl">
+              {getItem.reduce(
+                (previousValue, currentValue) =>
+                  previousValue + currentValue.quantity.value,
+                0
+              )}{" "}
+              Items
+            </h2>
           </div>
 
           <div className="flex mt-10 mb-5 ">
@@ -55,20 +56,28 @@ function Cart() {
             </div>
           </div>
 
-          <div className="overflow-y-auto overflow-x-hidden h-[70%]">
-            {getItem.map((item) => {
-              return (
-                <CartList
-                  key={item.id}
-                  img={item.img}
-                  desc={item.desc}
-                  name={item.name}
-                  price={item.price}
-                  quantity={item.quantity.value}
-                  total={item.total}
-                />
-              );
-            })}
+          <div className="overflow-y-auto overflow-x-hidden h-[70%] shadow-xl">
+            {getItem?.map(({ img, desc, name, price, quantity, total, id }) => (
+              <CartList
+                key={id}
+                id={id}
+                img={img}
+                desc={desc}
+                name={name}
+                price={price}
+                quantity={quantity.value}
+                total={total}
+              />
+            ))}
+          </div>
+          <div
+            className="font-bold text-xl text-gray-700 block  w-52 text-center
+    py-2 transition duration-200 ease-in-out cursor-pointer bg-rose-300 hover:text-2xl"
+          >
+            <button onClick={() => navigate(-1)}>
+              <KeyboardArrowLeftIcon />
+              Go Back?
+            </button>
           </div>
         </div>
 
@@ -78,7 +87,14 @@ function Cart() {
             Order Summary
           </h1>
           <div className="flex justify-between mt-10 mb-5">
-            <span className="font-semibold text-sm uppercase">Items 3</span>
+            <span className="font-semibold text-sm uppercase">
+              Items{" "}
+              {getItem.reduce(
+                (previousValue, currentValue) =>
+                  previousValue + currentValue.quantity.value,
+                0
+              )}{" "}
+            </span>
             <span className="font-semibold text-sm"></span>
           </div>
           <div>
@@ -86,7 +102,7 @@ function Cart() {
               Shipping
             </label>
             <select className="block p-2 text-gray-600 w-full text-sm">
-              <option>Standard shipping - $10.00</option>
+              <option>Free Shipping</option>
             </select>
           </div>
           <div className="py-10">
@@ -106,7 +122,15 @@ function Cart() {
           <div className="border-t mt-8">
             <div className="flex font-semibold justify-between py-6 text-sm uppercase">
               <span>Total cost</span>
-              <span>$600</span>
+              <span>
+                {getItem
+                  .reduce(
+                    (previousValue, currentValue) =>
+                      previousValue + Number(currentValue.total),
+                    0
+                  )
+                  .toFixed(2)}
+              </span>
             </div>
             <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
               Checkout
