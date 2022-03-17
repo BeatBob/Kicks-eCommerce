@@ -23,8 +23,9 @@ function Cart() {
 
   return (
     <div className="container mx-auto mt-10">
-      <div className="flex shadow-2xl my-10">
-        <div className="w-3/4 h-[640px] bg-white px-10 py-10 ">
+      <div className="md:flex shadow-2xl my-10">
+        {/* left  */}
+        <div className="md:w-3/4 h-[640px] bg-white px-10 py-10 ">
           <div className="flex justify-between border-b pb-8">
             <h1 className="font-semibold text-2xl">Shopping Cart</h1>
             <h2 className="font-semibold text-2xl">
@@ -37,7 +38,7 @@ function Cart() {
             </h2>
           </div>
 
-          <div className="flex mt-10 mb-5 ">
+          <div className="hidden md:flex mt-10 mb-5 ">
             <div className="w-2/5 pl-16">
               <h3 className="font-semibold  text-gray-600 text-xs uppercase ">
                 Product Details
@@ -55,8 +56,8 @@ function Cart() {
               </h3>
             </div>
           </div>
-
-          <div className="overflow-y-auto overflow-x-hidden h-[70%] shadow-xl">
+          {/* cart item  */}
+          <div className="overflow-y-auto overflow-x-hidden h-[80%] md:h-[70%] shadow-xl">
             {getItem?.map(({ img, desc, name, price, quantity, total, id }) => (
               <CartList
                 key={id}
@@ -70,6 +71,7 @@ function Cart() {
               />
             ))}
           </div>
+
           <div
             className="font-bold text-xl text-gray-700 block  w-52 text-center
     py-2 transition duration-200 ease-in-out cursor-pointer bg-rose-300 hover:text-2xl"
@@ -82,7 +84,7 @@ function Cart() {
         </div>
 
         {/* right */}
-        <div id="summary" className="w-1/4 px-8 py-10">
+        <div id="summary" className="md:w-1/4 px-8 py-10">
           <h1 className="font-semibold text-2xl border-b pb-8">
             Order Summary
           </h1>
